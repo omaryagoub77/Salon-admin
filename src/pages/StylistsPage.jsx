@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
 import { useFirestore } from '../hooks/useFirestore';
 import Button from '../components/ui/Button';
 import Modal from '../components/ui/Modal';
@@ -98,22 +97,18 @@ export default function StylistsPage() {
   };
 
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.5 }}
-      className="space-y-6"
-    >
+    <div className="space-y-6">
       {/* Page header */}
-      <div className="flex flex-col md:flex-row md:items-center md:justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
           <h1 className="text-2xl font-bold text-gray-900">Stylists</h1>
           <p className="mt-1 text-gray-600">Manage your salon stylists</p>
         </div>
-        <div className="mt-4 md:mt-0">
+        <div>
           <Button
             icon={<PlusIcon className="h-5 w-5" />}
             onClick={() => handleOpenModal()}
+            size="sm"
           >
             Add Stylist
           </Button>
@@ -122,45 +117,42 @@ export default function StylistsPage() {
 
       {/* Stylists grid */}
       {loading ? (
-        <div className="flex justify-center items-center h-64">
-          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-amber-600"></div>
+        <div className="flex justify-center items-center h-48 md:h-64">
+          <div className="animate-spin rounded-full h-8 w-8 md:h-12 md:w-12 border-t-2 border-b-2 border-amber-600"></div>
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
           {stylists.map((stylist) => (
-            <motion.div
+            <div
               key={stylist.id}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.3 }}
               className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-shadow duration-300"
             >
-              <div className="p-6">
+              <div className="p-4 md:p-6">
                 <div className="flex items-center">
                   {stylist.image ? (
                     <img 
                       src={stylist.image} 
                       alt={stylist.name} 
-                      className="w-16 h-16 rounded-full object-cover"
+                      className="w-12 h-12 md:w-16 md:h-16 rounded-full object-cover"
                     />
                   ) : (
-                    <div className="bg-gray-200 border-2 border-dashed rounded-xl w-16 h-16 flex items-center justify-center">
-                      <UserIcon className="h-8 w-8 text-gray-400" />
+                    <div className="bg-gray-200 border-2 border-dashed rounded-xl w-12 h-12 md:w-16 md:h-16 flex items-center justify-center">
+                      <UserIcon className="h-6 w-6 md:h-8 md:w-8 text-gray-400" />
                     </div>
                   )}
-                  <div className="ml-4">
-                    <h3 className="text-lg font-semibold text-gray-900">{stylist.name}</h3>
-                    <p className="text-sm text-gray-600">{stylist.role}</p>
+                  <div className="ml-3 md:ml-4">
+                    <h3 className="text-base md:text-lg font-semibold text-gray-900">{stylist.name}</h3>
+                    <p className="text-xs md:text-sm text-gray-600">{stylist.role}</p>
                   </div>
                 </div>
                 
                 <div className="mt-4">
-                  <p className="text-sm text-gray-600"><span className="font-medium">Specialty:</span> {stylist.specialty}</p>
-                  <p className="mt-1 text-sm text-gray-600"><span className="font-medium">Working Hours:</span> {stylist.workingHours}</p>
+                  <p className="text-xs md:text-sm text-gray-600"><span className="font-medium">Specialty:</span> {stylist.specialty}</p>
+                  <p className="mt-1 text-xs md:text-sm text-gray-600"><span className="font-medium">Working Hours:</span> {stylist.workingHours}</p>
                   
                   {stylist.services && stylist.services.length > 0 && (
                     <div className="mt-3">
-                      <p className="text-sm font-medium text-gray-900">Services:</p>
+                      <p className="text-xs md:text-sm font-medium text-gray-900">Services:</p>
                       <div className="mt-1 flex flex-wrap gap-1">
                         {stylist.services.slice(0, 3).map((serviceId) => {
                           const service = services.find(s => s.id === serviceId);
@@ -180,7 +172,7 @@ export default function StylistsPage() {
                   )}
                 </div>
                 
-                <div className="mt-6 flex space-x-3">
+                <div className="mt-6 flex space-x-2">
                   <Button
                     variant="secondary"
                     size="sm"
@@ -199,7 +191,7 @@ export default function StylistsPage() {
                   </Button>
                 </div>
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
       )}
@@ -223,7 +215,7 @@ export default function StylistsPage() {
                 name="name"
                 value={formData.name}
                 onChange={handleChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent text-sm"
                 required
               />
             </div>
@@ -237,7 +229,7 @@ export default function StylistsPage() {
                 name="role"
                 value={formData.role}
                 onChange={handleChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent text-sm"
                 required
               />
             </div>
@@ -253,7 +245,7 @@ export default function StylistsPage() {
               name="specialty"
               value={formData.specialty}
               onChange={handleChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent text-sm"
             />
           </div>
 
@@ -267,7 +259,7 @@ export default function StylistsPage() {
               name="workingHours"
               value={formData.workingHours}
               onChange={handleChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent text-sm"
               placeholder="e.g., Mon-Fri 9AM-6PM"
             />
           </div>
@@ -282,7 +274,7 @@ export default function StylistsPage() {
               name="image"
               value={formData.image}
               onChange={handleChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent text-sm"
             />
           </div>
 
@@ -313,17 +305,19 @@ export default function StylistsPage() {
               variant="secondary"
               onClick={handleCloseModal}
               type="button"
+              size="sm"
             >
               Cancel
             </Button>
             <Button
               type="submit"
+              size="sm"
             >
               {editingStylist ? 'Update Stylist' : 'Add Stylist'}
             </Button>
           </div>
         </form>
       </Modal>
-    </motion.div>
+    </div>
   );
 }

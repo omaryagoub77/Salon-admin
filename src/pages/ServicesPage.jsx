@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
 import { useFirestore } from '../hooks/useFirestore';
 import Button from '../components/ui/Button';
 import Modal from '../components/ui/Modal';
@@ -81,22 +80,18 @@ export default function ServicesPage() {
   };
 
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.5 }}
-      className="space-y-6"
-    >
+    <div className="space-y-6">
       {/* Page header */}
-      <div className="flex flex-col md:flex-row md:items-center md:justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
           <h1 className="text-2xl font-bold text-gray-900">Services</h1>
           <p className="mt-1 text-gray-600">Manage your salon services</p>
         </div>
-        <div className="mt-4 md:mt-0">
+        <div>
           <Button
             icon={<PlusIcon className="h-5 w-5" />}
             onClick={() => handleOpenModal()}
+            size="sm"
           >
             Add Service
           </Button>
@@ -105,21 +100,18 @@ export default function ServicesPage() {
 
       {/* Services grid */}
       {loading ? (
-        <div className="flex justify-center items-center h-64">
-          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-amber-600"></div>
+        <div className="flex justify-center items-center h-48 md:h-64">
+          <div className="animate-spin rounded-full h-8 w-8 md:h-12 md:w-12 border-t-2 border-b-2 border-amber-600"></div>
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
           {services.map((service) => (
-            <motion.div
+            <div
               key={service.id}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.3 }}
               className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-shadow duration-300"
             >
               {service.image && (
-                <div className="h-48 bg-gray-200 overflow-hidden">
+                <div className="h-32 md:h-48 bg-gray-200 overflow-hidden">
                   <img 
                     src={service.image} 
                     alt={service.name} 
@@ -127,21 +119,21 @@ export default function ServicesPage() {
                   />
                 </div>
               )}
-              <div className="p-6">
+              <div className="p-4 md:p-6">
                 <div className="flex justify-between items-start">
                   <div>
-                    <h3 className="text-lg font-semibold text-gray-900">{service.name}</h3>
-                    <p className="mt-1 text-sm text-gray-600">{service.category}</p>
+                    <h3 className="text-base md:text-lg font-semibold text-gray-900">{service.name}</h3>
+                    <p className="mt-1 text-xs md:text-sm text-gray-600">{service.category}</p>
                   </div>
-                  <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-amber-100 text-amber-800">
+                  <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-amber-100 text-amber-800">
                     ${service.price}
                   </span>
                 </div>
-                <p className="mt-3 text-sm text-gray-600 line-clamp-2">{service.description}</p>
-                <div className="mt-4 flex items-center text-sm text-gray-500">
+                <p className="mt-3 text-xs md:text-sm text-gray-600 line-clamp-2">{service.description}</p>
+                <div className="mt-4 flex items-center text-xs md:text-sm text-gray-500">
                   <span>{service.duration} mins</span>
                 </div>
-                <div className="mt-6 flex space-x-3">
+                <div className="mt-6 flex space-x-2">
                   <Button
                     variant="outline"
                     size="sm"
@@ -168,7 +160,7 @@ export default function ServicesPage() {
                   </Button>
                 </div>
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
       )}
@@ -192,7 +184,7 @@ export default function ServicesPage() {
                 name="name"
                 value={formData.name}
                 onChange={handleChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent text-sm"
                 required
               />
             </div>
@@ -206,7 +198,7 @@ export default function ServicesPage() {
                 name="category"
                 value={formData.category}
                 onChange={handleChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent text-sm"
                 required
               />
             </div>
@@ -222,7 +214,7 @@ export default function ServicesPage() {
               value={formData.description}
               onChange={handleChange}
               rows={3}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent text-sm"
               required
             />
           </div>
@@ -238,7 +230,7 @@ export default function ServicesPage() {
                 name="price"
                 value={formData.price}
                 onChange={handleChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent text-sm"
                 required
               />
             </div>
@@ -252,7 +244,7 @@ export default function ServicesPage() {
                 name="duration"
                 value={formData.duration}
                 onChange={handleChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent text-sm"
                 required
               />
             </div>
@@ -266,7 +258,7 @@ export default function ServicesPage() {
                 name="image"
                 value={formData.image}
                 onChange={handleChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent text-sm"
               />
             </div>
           </div>
@@ -276,17 +268,19 @@ export default function ServicesPage() {
               variant="secondary"
               onClick={handleCloseModal}
               type="button"
+              size="sm"
             >
               Cancel
             </Button>
             <Button
               type="submit"
+              size="sm"
             >
               {editingService ? 'Update Service' : 'Add Service'}
             </Button>
           </div>
         </form>
       </Modal>
-    </motion.div>
+    </div>
   );
 }

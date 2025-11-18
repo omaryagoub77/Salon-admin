@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
 import { useFirestore } from '../hooks/useFirestore';
 import Button from '../components/ui/Button';
 import Modal from '../components/ui/Modal';
@@ -91,23 +90,18 @@ export default function GalleryPage() {
   }, {});
 
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.5 }}
-      className="space-y-6"
-    >
+    <div className="space-y-6">
       {/* Page header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-xl sm:text-2xl font-bold text-gray-900">Gallery</h1>
-          <p className="mt-1 text-sm sm:text-base text-gray-600">Manage your salon gallery</p>
+          <h1 className="text-2xl font-bold text-gray-900">Gallery</h1>
+          <p className="mt-1 text-gray-600">Manage your salon gallery</p>
         </div>
-        <div className="w-full sm:w-auto">
+        <div>
           <Button
             icon={<PlusIcon className="h-5 w-5" />}
-            className="w-full sm:w-auto"
             onClick={() => handleOpenModal()}
+            size="sm"
           >
             Add Image
           </Button>
@@ -116,15 +110,16 @@ export default function GalleryPage() {
 
       {/* Gallery items */}
       {loading ? (
-        <div className="flex justify-center items-center h-64">
-          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-amber-600"></div>
+        <div className="flex justify-center items-center h-48 md:h-64">
+          <div className="animate-spin rounded-full h-8 w-8 md:h-12 md:w-12 border-t-2 border-b-2 border-amber-600"></div>
         </div>
       ) : Object.keys(groupedItems).length === 0 ? (
         <div className="text-center py-12">
           <p className="text-gray-500">No gallery items found</p>
           <Button
-            className="mt-4 w-full sm:w-auto"
+            className="mt-4"
             onClick={() => handleOpenModal()}
+            size="sm"
           >
             Add your first image
           </Button>
@@ -133,14 +128,11 @@ export default function GalleryPage() {
         <div className="space-y-8">
           {Object.entries(groupedItems).map(([category, items]) => (
             <div key={category}>
-              <h2 className="text-lg sm:text-xl font-semibold text-gray-900 mb-4">{category}</h2>
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+              <h2 className="text-lg font-semibold text-gray-900 mb-4">{category}</h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
                 {items.map((item) => (
-                  <motion.div
+                  <div
                     key={item.id}
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.3 }}
                     className="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-shadow duration-300"
                   >
                     <div className="aspect-square bg-gray-200 overflow-hidden">
@@ -159,22 +151,20 @@ export default function GalleryPage() {
                           size="sm"
                           icon={<PencilIcon className="h-4 w-4" />}
                           onClick={() => handleOpenModal(item)}
-                          className="w-full sm:w-auto"
                         >
-                          <span className="hidden xs:inline">Edit</span>
+                          Edit
                         </Button>
                         <Button
                           variant="danger"
                           size="sm"
                           icon={<TrashIcon className="h-4 w-4" />}
                           onClick={() => handleDelete(item.id)}
-                          className="w-full sm:w-auto"
                         >
-                          <span className="hidden xs:inline">Delete</span>
+                          Delete
                         </Button>
                       </div>
                     </div>
-                  </motion.div>
+                  </div>
                 ))}
               </div>
             </div>
@@ -191,7 +181,7 @@ export default function GalleryPage() {
       >
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label htmlFor="title" className="block text-xs sm:text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="title" className="block text-sm font-medium text-gray-700 mb-1">
               Title
             </label>
             <input
@@ -206,7 +196,7 @@ export default function GalleryPage() {
           </div>
 
           <div>
-            <label htmlFor="category" className="block text-xs sm:text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="category" className="block text-sm font-medium text-gray-700 mb-1">
               Category
             </label>
             <input
@@ -221,7 +211,7 @@ export default function GalleryPage() {
           </div>
 
           <div>
-            <label htmlFor="image" className="block text-xs sm:text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="image" className="block text-sm font-medium text-gray-700 mb-1">
               Image URL
             </label>
             <input
@@ -237,7 +227,7 @@ export default function GalleryPage() {
 
           {formData.image && (
             <div className="mt-4">
-              <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-gray-700 mb-1">
                 Preview
               </label>
               <div className="aspect-video bg-gray-200 rounded-lg overflow-hidden">
@@ -255,13 +245,13 @@ export default function GalleryPage() {
               variant="secondary"
               onClick={handleCloseModal}
               type="button"
-              className="w-full sm:w-auto"
+              size="sm"
             >
               Cancel
             </Button>
             <Button
               type="submit"
-              className="w-full sm:w-auto"
+              size="sm"
             >
               {editingItem ? 'Update Item' : 'Add Item'}
             </Button>
@@ -286,11 +276,11 @@ export default function GalleryPage() {
               />
             </div>
             <div>
-              <p className="text-xs sm:text-sm text-gray-600">Category: {previewItem.category || 'Uncategorized'}</p>
+              <p className="text-sm text-gray-600">Category: {previewItem.category || 'Uncategorized'}</p>
             </div>
           </div>
         )}
       </Modal>
-    </motion.div>
+    </div>
   );
 }

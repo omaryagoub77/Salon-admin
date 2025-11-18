@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
@@ -46,22 +45,17 @@ export default function LoginPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-amber-50 to-amber-100 flex items-center justify-center p-4">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        className="bg-white rounded-2xl shadow-xl p-8 w-full max-w-md"
-      >
+      <div className="bg-white rounded-2xl shadow-xl p-6 w-full max-w-md">
         <div className="text-center mb-8">
           <div className="mx-auto bg-gradient-to-r from-amber-600 to-amber-800 w-16 h-16 rounded-full flex items-center justify-center mb-4">
             <span className="text-white text-2xl font-bold">H</span>
           </div>
-          <h1 className="text-3xl font-bold text-gray-800">Hair Salon Admin</h1>
+          <h1 className="text-2xl font-bold text-gray-800">Hair Salon Admin</h1>
           <p className="text-gray-600 mt-2">Sign in to your account</p>
         </div>
 
         {error && (
-          <div className="mb-4 p-3 bg-red-100 text-red-700 rounded-lg">
+          <div className="mb-4 p-3 bg-red-100 text-red-700 rounded-lg text-sm">
             {error}
           </div>
         )}
@@ -69,25 +63,25 @@ export default function LoginPage() {
         {!showResetForm ? (
           <form onSubmit={handleSubmit}>
             <div className="mb-4">
-              <label htmlFor="email" className="block text-gray-700 mb-2">Email</label>
+              <label htmlFor="email" className="block text-gray-700 mb-2 text-sm">Email</label>
               <input
                 type="email"
                 id="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent text-sm"
                 required
               />
             </div>
 
             <div className="mb-6">
-              <label htmlFor="password" className="block text-gray-700 mb-2">Password</label>
+              <label htmlFor="password" className="block text-gray-700 mb-2 text-sm">Password</label>
               <input
                 type="password"
                 id="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent text-sm"
                 required
               />
             </div>
@@ -95,7 +89,7 @@ export default function LoginPage() {
             <button
               disabled={loading}
               type="submit"
-              className="w-full bg-gradient-to-r from-amber-600 to-amber-800 text-white py-3 rounded-lg font-semibold hover:from-amber-700 hover:to-amber-900 transition-all duration-300 shadow-lg"
+              className="w-full bg-gradient-to-r from-amber-600 to-amber-800 text-white py-3 rounded-lg font-semibold hover:from-amber-700 hover:to-amber-900 transition-all duration-300 shadow-lg text-sm"
             >
               {loading ? 'Signing in...' : 'Sign In'}
             </button>
@@ -104,7 +98,7 @@ export default function LoginPage() {
               <button
                 type="button"
                 onClick={() => setShowResetForm(true)}
-                className="text-amber-600 hover:text-amber-800 font-medium"
+                className="text-amber-600 hover:text-amber-800 font-medium text-sm"
               >
                 Forgot Password?
               </button>
@@ -113,13 +107,13 @@ export default function LoginPage() {
         ) : (
           <form onSubmit={handleResetPassword}>
             <div className="mb-4">
-              <label htmlFor="resetEmail" className="block text-gray-700 mb-2">Email</label>
+              <label htmlFor="resetEmail" className="block text-gray-700 mb-2 text-sm">Email</label>
               <input
                 type="email"
                 id="resetEmail"
                 value={resetEmail}
                 onChange={(e) => setResetEmail(e.target.value)}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent text-sm"
                 required
               />
             </div>
@@ -127,7 +121,7 @@ export default function LoginPage() {
             <button
               disabled={loading}
               type="submit"
-              className="w-full bg-gradient-to-r from-amber-600 to-amber-800 text-white py-3 rounded-lg font-semibold hover:from-amber-700 hover:to-amber-900 transition-all duration-300 shadow-lg"
+              className="w-full bg-gradient-to-r from-amber-600 to-amber-800 text-white py-3 rounded-lg font-semibold hover:from-amber-700 hover:to-amber-900 transition-all duration-300 shadow-lg text-sm"
             >
               {loading ? 'Sending...' : 'Send Reset Email'}
             </button>
@@ -136,14 +130,14 @@ export default function LoginPage() {
               <button
                 type="button"
                 onClick={() => setShowResetForm(false)}
-                className="text-amber-600 hover:text-amber-800 font-medium"
+                className="text-amber-600 hover:text-amber-800 font-medium text-sm"
               >
                 Back to Sign In
               </button>
             </div>
           </form>
         )}
-      </motion.div>
+      </div>
     </div>
   );
 }

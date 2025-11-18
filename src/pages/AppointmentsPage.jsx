@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
 import { useFirestore } from '../hooks/useFirestore';
 import Button from '../components/ui/Button';
 import { CalendarIcon, CheckCircleIcon, XCircleIcon, ClockIcon } from '@heroicons/react/24/outline';
@@ -12,23 +11,23 @@ export default function AppointmentsPage() {
   const getStatusBadge = (status) => {
     switch (status) {
       case 'confirmed':
-        return <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+        return <span className="inline-flex items-center px-2 py-1 text-xs rounded-full bg-green-100 text-green-800">
           Confirmed
         </span>;
       case 'pending':
-        return <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
+        return <span className="inline-flex items-center px-2 py-1 text-xs rounded-full bg-yellow-100 text-yellow-800">
           Pending
         </span>;
       case 'completed':
-        return <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+        return <span className="inline-flex items-center px-2 py-1 text-xs rounded-full bg-blue-100 text-blue-800">
           Completed
         </span>;
       case 'cancelled':
-        return <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
+        return <span className="inline-flex items-center px-2 py-1 text-xs rounded-full bg-red-100 text-red-800">
           Cancelled
         </span>;
       default:
-        return <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
+        return <span className="inline-flex items-center px-2 py-1 text-xs rounded-full bg-gray-100 text-gray-800">
           {status}
         </span>;
     }
@@ -53,20 +52,15 @@ export default function AppointmentsPage() {
   });
 
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.5 }}
-      className="space-y-6"
-    >
+    <div className="space-y-6">
       {/* Page header */}
-      <div className="flex flex-col md:flex-row md:items-center md:justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
           <h1 className="text-2xl font-bold text-gray-900">Appointments</h1>
           <p className="mt-1 text-gray-600">Manage client appointments</p>
         </div>
-        <div className="mt-4 md:mt-0">
-          <Button>
+        <div>
+          <Button size="sm">
             <CalendarIcon className="h-5 w-5 mr-2" />
             New Appointment
           </Button>
@@ -74,11 +68,11 @@ export default function AppointmentsPage() {
       </div>
 
       {/* Filters and search */}
-      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div className="flex flex-wrap gap-2">
           <button
             onClick={() => setFilter('all')}
-            className={`px-3 py-1.5 text-sm rounded-full ${
+            className={`px-3 py-1.5 text-xs rounded-full ${
               filter === 'all' 
                 ? 'bg-amber-100 text-amber-800 font-medium' 
                 : 'bg-gray-100 text-gray-800 hover:bg-gray-200'
@@ -88,7 +82,7 @@ export default function AppointmentsPage() {
           </button>
           <button
             onClick={() => setFilter('pending')}
-            className={`px-3 py-1.5 text-sm rounded-full ${
+            className={`px-3 py-1.5 text-xs rounded-full ${
               filter === 'pending' 
                 ? 'bg-yellow-100 text-yellow-800 font-medium' 
                 : 'bg-gray-100 text-gray-800 hover:bg-gray-200'
@@ -98,7 +92,7 @@ export default function AppointmentsPage() {
           </button>
           <button
             onClick={() => setFilter('confirmed')}
-            className={`px-3 py-1.5 text-sm rounded-full ${
+            className={`px-3 py-1.5 text-xs rounded-full ${
               filter === 'confirmed' 
                 ? 'bg-green-100 text-green-800 font-medium' 
                 : 'bg-gray-100 text-gray-800 hover:bg-gray-200'
@@ -108,7 +102,7 @@ export default function AppointmentsPage() {
           </button>
           <button
             onClick={() => setFilter('completed')}
-            className={`px-3 py-1.5 text-sm rounded-full ${
+            className={`px-3 py-1.5 text-xs rounded-full ${
               filter === 'completed' 
                 ? 'bg-blue-100 text-blue-800 font-medium' 
                 : 'bg-gray-100 text-gray-800 hover:bg-gray-200'
@@ -118,7 +112,7 @@ export default function AppointmentsPage() {
           </button>
           <button
             onClick={() => setFilter('cancelled')}
-            className={`px-3 py-1.5 text-sm rounded-full ${
+            className={`px-3 py-1.5 text-xs rounded-full ${
               filter === 'cancelled' 
                 ? 'bg-red-100 text-red-800 font-medium' 
                 : 'bg-gray-100 text-gray-800 hover:bg-gray-200'
@@ -139,15 +133,15 @@ export default function AppointmentsPage() {
             placeholder="Search appointments..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent"
+            className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent text-sm"
           />
         </div>
       </div>
 
       {/* Appointments table */}
       {loading ? (
-        <div className="flex justify-center items-center h-64">
-          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-amber-600"></div>
+        <div className="flex justify-center items-center h-48 md:h-64">
+          <div className="animate-spin rounded-full h-8 w-8 md:h-12 md:w-12 border-t-2 border-b-2 border-amber-600"></div>
         </div>
       ) : (
         <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
@@ -155,49 +149,46 @@ export default function AppointmentsPage() {
             <table className="min-w-full divide-y divide-gray-200">
               <thead className="bg-gray-50">
                 <tr>
-                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Client</th>
-                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Service</th>
-                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Stylist</th>
-                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date & Time</th>
-                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                  <th scope="col" className="px-4 py-3 md:px-6 md:py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Client</th>
+                  <th scope="col" className="px-4 py-3 md:px-6 md:py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Service</th>
+                  <th scope="col" className="px-4 py-3 md:px-6 md:py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Stylist</th>
+                  <th scope="col" className="px-4 py-3 md:px-6 md:py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date & Time</th>
+                  <th scope="col" className="px-4 py-3 md:px-6 md:py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                  <th scope="col" className="px-4 py-3 md:px-6 md:py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
                 {filteredAppointments.length === 0 ? (
                   <tr>
-                    <td colSpan="6" className="px-6 py-4 text-center text-gray-500">
+                    <td colSpan="6" className="px-4 py-3 md:px-6 md:py-4 text-center text-gray-500">
                       No appointments found
                     </td>
                   </tr>
                 ) : (
                   filteredAppointments.map((appointment) => (
-                    <motion.tr 
+                    <tr 
                       key={appointment.id}
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      transition={{ duration: 0.3 }}
                       className="hover:bg-gray-50"
                     >
-                      <td className="px-6 py-4 whitespace-nowrap">
+                      <td className="px-4 py-3 md:px-6 md:py-4 whitespace-nowrap">
                         <div className="text-sm font-medium text-gray-900">{appointment.clientName}</div>
-                        <div className="text-sm text-gray-500">{appointment.clientPhone}</div>
+                        <div className="text-xs text-gray-500">{appointment.clientPhone}</div>
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
+                      <td className="px-4 py-3 md:px-6 md:py-4 whitespace-nowrap">
                         <div className="text-sm text-gray-900">{appointment.serviceName}</div>
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
+                      <td className="px-4 py-3 md:px-6 md:py-4 whitespace-nowrap">
                         <div className="text-sm text-gray-900">{appointment.stylistName}</div>
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
+                      <td className="px-4 py-3 md:px-6 md:py-4 whitespace-nowrap">
                         <div className="text-sm text-gray-900">{appointment.date}</div>
-                        <div className="text-sm text-gray-500">{appointment.time}</div>
+                        <div className="text-xs text-gray-500">{appointment.time}</div>
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
+                      <td className="px-4 py-3 md:px-6 md:py-4 whitespace-nowrap">
                         {getStatusBadge(appointment.status)}
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                        <div className="flex space-x-2">
+                      <td className="px-4 py-3 md:px-6 md:py-4 whitespace-nowrap text-sm font-medium">
+                        <div className="flex flex-wrap gap-2">
                           {appointment.status !== 'completed' && appointment.status !== 'cancelled' && (
                             <>
                               <Button
@@ -230,7 +221,7 @@ export default function AppointmentsPage() {
                           )}
                         </div>
                       </td>
-                    </motion.tr>
+                    </tr>
                   ))
                 )}
               </tbody>
@@ -238,6 +229,6 @@ export default function AppointmentsPage() {
           </div>
         </div>
       )}
-    </motion.div>
+    </div>
   );
 }

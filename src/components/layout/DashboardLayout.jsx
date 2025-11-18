@@ -26,9 +26,18 @@ export default function DashboardLayout() {
   }
 
   return (
-    <div className="flex h-screen bg-gray-50">
+    <div className="flex min-h-screen bg-gray-50">
       {/* Sidebar - visible on large screens, hidden on mobile by default */}
-      <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
+      <div className="hidden lg:block w-64 flex-shrink-0">
+        <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
+      </div>
+      
+      {/* Mobile sidebar - shown when sidebarOpen is true */}
+      {sidebarOpen && (
+        <div className="lg:hidden fixed inset-0 z-50">
+          <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
+        </div>
+      )}
 
       <div className="flex-1 flex flex-col overflow-hidden">
         {/* Header */}

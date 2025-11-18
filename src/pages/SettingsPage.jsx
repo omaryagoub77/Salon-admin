@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
 import { useFirestore } from '../hooks/useFirestore';
 import Button from '../components/ui/Button';
 
@@ -113,32 +112,27 @@ export default function SettingsPage() {
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center h-64">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-amber-600"></div>
+      <div className="flex justify-center items-center h-48 md:h-64">
+        <div className="animate-spin rounded-full h-8 w-8 md:h-12 md:w-12 border-t-2 border-b-2 border-amber-600"></div>
       </div>
     );
   }
 
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.5 }}
-      className="space-y-6"
-    >
+    <div className="space-y-6">
       {/* Page header */}
       <div>
-        <h1 className="text-xl sm:text-2xl font-bold text-gray-900">Settings</h1>
-        <p className="mt-1 text-sm sm:text-base text-gray-600">Manage your salon settings</p>
+        <h1 className="text-2xl font-bold text-gray-900">Settings</h1>
+        <p className="mt-1 text-gray-600">Manage your salon settings</p>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-8">
         {/* General Information */}
-        <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-4 sm:p-6">
-          <h2 className="text-base sm:text-lg font-semibold text-gray-900 mb-4">General Information</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+        <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-4 md:p-6">
+          <h2 className="text-lg font-semibold text-gray-900 mb-4">General Information</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label htmlFor="salonName" className="block text-xs sm:text-sm font-medium text-gray-700 mb-1">
+              <label htmlFor="salonName" className="block text-sm font-medium text-gray-700 mb-1">
                 Salon Name
               </label>
               <input
@@ -152,7 +146,7 @@ export default function SettingsPage() {
             </div>
             
             <div>
-              <label htmlFor="logo" className="block text-xs sm:text-sm font-medium text-gray-700 mb-1">
+              <label htmlFor="logo" className="block text-sm font-medium text-gray-700 mb-1">
                 Logo URL
               </label>
               <input
@@ -166,7 +160,7 @@ export default function SettingsPage() {
             </div>
             
             <div>
-              <label htmlFor="phone" className="block text-xs sm:text-sm font-medium text-gray-700 mb-1">
+              <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1">
                 Phone Number
               </label>
               <input
@@ -180,7 +174,7 @@ export default function SettingsPage() {
             </div>
             
             <div>
-              <label htmlFor="email" className="block text-xs sm:text-sm font-medium text-gray-700 mb-1">
+              <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
                 Email Address
               </label>
               <input
@@ -193,8 +187,8 @@ export default function SettingsPage() {
               />
             </div>
             
-            <div className="sm:col-span-2">
-              <label htmlFor="address" className="block text-xs sm:text-sm font-medium text-gray-700 mb-1">
+            <div className="md:col-span-2">
+              <label htmlFor="address" className="block text-sm font-medium text-gray-700 mb-1">
                 Address
               </label>
               <textarea
@@ -210,12 +204,12 @@ export default function SettingsPage() {
         </div>
 
         {/* Opening Hours */}
-        <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-4 sm:p-6">
-          <h2 className="text-base sm:text-lg font-semibold text-gray-900 mb-4">Opening Hours</h2>
+        <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-4 md:p-6">
+          <h2 className="text-lg font-semibold text-gray-900 mb-4">Opening Hours</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {Object.entries(formData.openingHours).map(([day, hours]) => (
               <div key={day}>
-                <label htmlFor={`hours-${day}`} className="block text-xs sm:text-sm font-medium text-gray-700 mb-1 capitalize">
+                <label htmlFor={`hours-${day}`} className="block text-sm font-medium text-gray-700 mb-1 capitalize">
                   {day}
                 </label>
                 <input
@@ -232,11 +226,11 @@ export default function SettingsPage() {
         </div>
 
         {/* Social Links */}
-        <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-4 sm:p-6">
-          <h2 className="text-base sm:text-lg font-semibold text-gray-900 mb-4">Social Links</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
+        <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-4 md:p-6">
+          <h2 className="text-lg font-semibold text-gray-900 mb-4">Social Links</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div>
-              <label htmlFor="facebook" className="block text-xs sm:text-sm font-medium text-gray-700 mb-1">
+              <label htmlFor="facebook" className="block text-sm font-medium text-gray-700 mb-1">
                 Facebook
               </label>
               <input
@@ -250,7 +244,7 @@ export default function SettingsPage() {
             </div>
             
             <div>
-              <label htmlFor="instagram" className="block text-xs sm:text-sm font-medium text-gray-700 mb-1">
+              <label htmlFor="instagram" className="block text-sm font-medium text-gray-700 mb-1">
                 Instagram
               </label>
               <input
@@ -264,7 +258,7 @@ export default function SettingsPage() {
             </div>
             
             <div>
-              <label htmlFor="whatsapp" className="block text-xs sm:text-sm font-medium text-gray-700 mb-1">
+              <label htmlFor="whatsapp" className="block text-sm font-medium text-gray-700 mb-1">
                 WhatsApp
               </label>
               <input
@@ -280,11 +274,11 @@ export default function SettingsPage() {
         </div>
 
         {/* Hero Section */}
-        <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-4 sm:p-6">
-          <h2 className="text-base sm:text-lg font-semibold text-gray-900 mb-4">Hero Section</h2>
+        <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-4 md:p-6">
+          <h2 className="text-lg font-semibold text-gray-900 mb-4">Hero Section</h2>
           <div className="space-y-6">
             <div>
-              <label htmlFor="heroTitle" className="block text-xs sm:text-sm font-medium text-gray-700 mb-1">
+              <label htmlFor="heroTitle" className="block text-sm font-medium text-gray-700 mb-1">
                 Hero Title
               </label>
               <input
@@ -298,7 +292,7 @@ export default function SettingsPage() {
             </div>
             
             <div>
-              <label htmlFor="heroSubtitle" className="block text-xs sm:text-sm font-medium text-gray-700 mb-1">
+              <label htmlFor="heroSubtitle" className="block text-sm font-medium text-gray-700 mb-1">
                 Hero Subtitle
               </label>
               <textarea
@@ -312,7 +306,7 @@ export default function SettingsPage() {
             </div>
             
             <div>
-              <label htmlFor="bannerImage" className="block text-xs sm:text-sm font-medium text-gray-700 mb-1">
+              <label htmlFor="bannerImage" className="block text-sm font-medium text-gray-700 mb-1">
                 Banner Image URL
               </label>
               <input
@@ -326,7 +320,7 @@ export default function SettingsPage() {
               
               {formData.bannerImage && (
                 <div className="mt-4">
-                  <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
                     Preview
                   </label>
                   <div className="aspect-video bg-gray-200 rounded-lg overflow-hidden">
@@ -344,11 +338,11 @@ export default function SettingsPage() {
 
         {/* Save Button */}
         <div className="flex justify-end">
-          <Button type="submit" size="lg" className="w-full sm:w-auto">
+          <Button type="submit" size="md">
             Save Settings
           </Button>
         </div>
       </form>
-    </motion.div>
+    </div>
   );
 }

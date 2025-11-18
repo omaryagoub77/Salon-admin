@@ -1,5 +1,4 @@
 import React from 'react';
-import { motion } from 'framer-motion';
 
 export default function Button({ 
   children, 
@@ -21,15 +20,13 @@ export default function Button({
   };
 
   const sizeClasses = {
-    sm: 'px-3 py-1.5 text-sm',
-    md: 'px-4 py-2 text-base',
-    lg: 'px-6 py-3 text-lg'
+    sm: 'px-3 py-1.5 text-xs',
+    md: 'px-4 py-2 text-sm',
+    lg: 'px-6 py-3 text-base'
   };
 
   return (
-    <motion.button
-      whileHover={{ scale: disabled ? 1 : 1.03 }}
-      whileTap={{ scale: disabled ? 1 : 0.98 }}
+    <button
       type={type}
       onClick={onClick}
       disabled={disabled}
@@ -37,13 +34,13 @@ export default function Button({
         inline-flex items-center justify-center font-medium rounded-lg transition-all duration-200
         ${variantClasses[variant]}
         ${sizeClasses[size]}
-        ${disabled ? 'opacity-50 cursor-not-allowed' : ''}
+        ${disabled ? 'opacity-50 cursor-not-allowed' : 'hover:scale-[1.02] active:scale-[0.98]'}
         ${className}
       `}
       {...props}
     >
       {icon && <span className="mr-2">{icon}</span>}
       {children}
-    </motion.button>
+    </button>
   );
 }

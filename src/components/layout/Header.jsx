@@ -21,7 +21,7 @@ export default function Header({ setSidebarOpen }) {
           </button>
           
           {/* Search bar - hidden on mobile */}
-          <div className="hidden md:block relative">
+          <div className="hidden sm:block relative">
             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
               <svg className="h-5 w-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clipRule="evenodd" />
@@ -30,7 +30,7 @@ export default function Header({ setSidebarOpen }) {
             <input
               type="text"
               placeholder="Search..."
-              className="block w-64 pl-10 pr-3 py-2 border border-gray-300 rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent"
+              className="block w-48 sm:w-56 md:w-64 pl-10 pr-3 py-2 border border-gray-300 rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent text-sm"
             />
           </div>
         </div>
@@ -51,10 +51,10 @@ export default function Header({ setSidebarOpen }) {
               className="flex items-center space-x-2 focus:outline-none"
               onClick={() => setUserMenuOpen(!userMenuOpen)}
             >
-              <div className="bg-gradient-to-r from-amber-600 to-amber-800 w-8 h-8 rounded-full flex items-center justify-center text-white font-bold">
+              <div className="bg-gradient-to-r from-amber-600 to-amber-800 w-8 h-8 rounded-full flex items-center justify-center text-white font-bold text-sm">
                 {currentUser?.email?.charAt(0).toUpperCase() || 'A'}
               </div>
-              <span className="hidden md:block text-gray-700 font-medium">
+              <span className="hidden md:block text-gray-700 font-medium text-sm">
                 {currentUser?.email || 'Admin'}
               </span>
               <svg className="hidden md:block h-5 w-5 text-gray-500" fill="currentColor" viewBox="0 0 20 20">

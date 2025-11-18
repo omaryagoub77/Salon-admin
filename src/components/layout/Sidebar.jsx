@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
-import { motion } from 'framer-motion';
 
 export default function Sidebar({ sidebarOpen, setSidebarOpen }) {
   const { logout } = useAuth();
@@ -31,17 +30,18 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen }) {
       {/* Mobile sidebar overlay */}
       {sidebarOpen && (
         <div 
-          className="fixed inset-0 z-40 bg-black bg-opacity-50 lg:hidden"
+          className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden"
           onClick={() => setSidebarOpen(false)}
         />
       )}
 
       {/* Sidebar */}
-      <motion.aside
-        initial={{ x: -280 }}
-        animate={{ x: sidebarOpen ? 0 : -280 }}
-        transition={{ type: "spring", stiffness: 300, damping: 30 }}
-        className="fixed inset-y-0 left-0 z-50 w-64 bg-white shadow-lg transform transition-transform duration-300 ease-in-out lg:static lg:translate-x-0 lg:shadow-none"
+      <aside
+        className={`
+          h-full w-64 bg-white shadow-lg transition-transform duration-300 ease-in-out
+          ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}
+          lg:translate-x-0 lg:static lg:transform-none
+        `}
       >
         <div className="flex flex-col h-full">
           {/* Sidebar header */}
@@ -50,7 +50,7 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen }) {
               <div className="bg-white text-amber-800 w-8 h-8 rounded-full flex items-center justify-center font-bold">
                 H
               </div>
-              <span className="text-lg sm:text-xl font-bold">Hair Salon</span>
+              <span className="text-lg font-bold">Hair Salon</span>
             </div>
             <button
               className="lg:hidden text-white"
@@ -71,14 +71,14 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen }) {
                   <li key={item.name}>
                     <Link
                       to={item.href}
-                      className={`flex items-center px-3 py-2.5 sm:px-4 sm:py-3 text-sm sm:text-base font-medium rounded-lg transition-all duration-200 ${
+                      className={`flex items-center px-3 py-2.5 text-sm font-medium rounded-lg transition-all duration-200 ${
                         isActive
                           ? 'bg-amber-100 text-amber-800 shadow-sm'
                           : 'text-gray-700 hover:bg-gray-100'
                       }`}
                       onClick={() => setSidebarOpen(false)}
                     >
-                      <span className="mr-2 sm:mr-3 text-base sm:text-lg">{item.icon}</span>
+                      <span className="mr-3 text-base">{item.icon}</span>
                       <span className="truncate">{item.name}</span>
                     </Link>
                   </li>
@@ -91,14 +91,14 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen }) {
           <div className="p-4 border-t border-gray-200">
             <button
               onClick={handleLogout}
-              className="w-full flex items-center px-3 py-2.5 sm:px-4 sm:py-3 text-sm sm:text-base font-medium text-gray-700 rounded-lg hover:bg-gray-100 transition-colors duration-200"
+              className="w-full flex items-center px-3 py-2.5 text-sm font-medium text-gray-700 rounded-lg hover:bg-gray-100 transition-colors duration-200"
             >
-              <span className="mr-2 sm:mr-3 text-base sm:text-lg">🚪</span>
+              <span className="mr-3 text-base">🚪</span>
               <span className="truncate">Logout</span>
             </button>
           </div>
         </div>
-      </motion.aside>
+      </aside>
     </>
   );
 }

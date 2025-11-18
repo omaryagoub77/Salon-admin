@@ -1,5 +1,4 @@
 import React from 'react';
-import { motion } from 'framer-motion';
 
 export default function StatCard({ title, value, icon, color = 'amber' }) {
   const colorClasses = {
@@ -11,28 +10,18 @@ export default function StatCard({ title, value, icon, color = 'amber' }) {
   };
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3 }}
-      className="bg-white rounded-xl shadow-sm p-6 border border-gray-100"
-    >
+    <div className="bg-white rounded-xl shadow-sm p-4 md:p-6 border border-gray-100 h-full">
       <div className="flex items-center">
         <div className={`p-3 rounded-lg ${colorClasses[color]}`}>
           <span className="text-xl">{icon}</span>
         </div>
         <div className="ml-4">
-          <p className="text-sm font-medium text-gray-600">{title}</p>
-          <motion.p 
-            initial={{ scale: 0.9 }}
-            animate={{ scale: 1 }}
-            transition={{ type: "spring", stiffness: 300 }}
-            className="text-2xl font-bold text-gray-900"
-          >
+          <p className="text-xs md:text-sm font-medium text-gray-600">{title}</p>
+          <p className="text-xl md:text-2xl font-bold text-gray-900">
             {value}
-          </motion.p>
+          </p>
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 }
