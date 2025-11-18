@@ -13,7 +13,7 @@ import SettingsPage from './pages/SettingsPage';
 
 function App() {
   return (
-    <Router>
+    
       <AuthProvider>
         <Routes>
           <Route path="/login" element={<LoginPage />} />
@@ -30,7 +30,7 @@ function App() {
           </Route>
         </Routes>
       </AuthProvider>
-    </Router>
+    
   );
 }
 
